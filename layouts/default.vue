@@ -52,4 +52,20 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
+.container {
+  text-align: center;
+  margin: 12px 8px;
+}
+
+.links {
+  padding-top: 15px;
+}
+
+h1.page-title {
+  font-size: 1.5em;
+}
+h2.page-section {
+  font-size: 1.1em;
+}
 </style>

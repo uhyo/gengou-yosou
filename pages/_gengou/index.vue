@@ -1,6 +1,6 @@
 <template>
   <article class="page">
-    <h1>新元号予想</h1>
+    <h1 class="page-title">新元号予想</h1>
     <p class="gengou">
       <b>
         <ruby>
@@ -9,8 +9,12 @@
         </ruby>
       </b>
     </p>
-    <h2>意義</h2>
+    <h2 class="page-section">意義</h2>
     <p>{{gengou.description}}</p>
+
+    <div class="links">
+      <router-link to="/random" class="button--green">他の予想を見る</router-link>
+    </div>
   </article>
 </template>
 <script>
@@ -21,7 +25,11 @@ export default {
   },
   async asyncData({ params }) {
     const gengouCode = parseInt(params.gengou, 16);
-    const { getGengouData } = await import('@/logic/kanji.js');
+    const {
+      getGengouData
+    } = await import(/*
+      webpackPrefetch: true
+    */ '@/logic/kanji.js');
     return {
       gengou: getGengouData(gengouCode)
     };
@@ -31,12 +39,6 @@ export default {
 <style scoped>
 .page {
   text-align: center;
-}
-h1 {
-  font-size: 1.5em;
-}
-h2 {
-  font-size: 1.1em;
 }
 .gengou {
   margin: 30px 0;

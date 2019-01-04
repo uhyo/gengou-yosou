@@ -1,47 +1,22 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
-      <h1 class="title">
-        gengou-yosou
-      </h1>
-      <h2 class="subtitle">
-        My prime Nuxt.js project
-      </h2>
+      <h1 class="page-title">新元号予想サイト</h1>
+      <p>このサイトでは、2019年4月1日に公表が予定されている新元号の独自予想を公開しています。</p>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
+        <router-link to="/random" class="button--green">予想を見る</router-link>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
-  }
-}
+  components: {}
+};
 </script>
 
 <style>
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -58,9 +33,5 @@ export default {
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
