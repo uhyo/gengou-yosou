@@ -13,6 +13,7 @@
     <p>{{gengou.description}}</p>
 
     <div class="links">
+      <a :href="tweet" target="_blank" class="button--blue">この予想をツイート</a>
       <router-link to="/random" class="button--green">他の予想を見る</router-link>
     </div>
   </article>
@@ -23,7 +24,7 @@ export default {
     // hex expression of 32bit integer
     return /^[0-9a-fA-F]{8}$/.test(params.gengou);
   },
-  async asyncData({ params }) {
+  async asyncData({ params, env }) {
     const gengouCode = parseInt(params.gengou, 16);
     const {
       getGengouData
@@ -32,8 +33,24 @@ export default {
     */ '@/logic/kanji.js');
     return {
       gengouId: params.gengou,
-      gengou: getGengouData(gengouCode)
+      gengou: getGengouData(gengouCode),
+      url: `${env.origin}/${params.gengou}`
     };
+  },
+  computed: {
+    tweet() {
+      const {
+        url,
+        gengouId,
+        gengou: { value }
+      } = this;
+      const text = `新元号予想「${value}」\n`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text
+      )}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(
+        '新元号予想'
+      )}`;
+    }
   },
   head() {
     return {
@@ -44,8 +61,8 @@ export default {
           content: `「${this.gengou.value}」`
         },
         {
-          hid: 'og:url',
-          content: `${process.env.origin}/${this.gengouId}`
+          property: 'og:url',
+          content: this.url
         },
         {
           hid: 'og:title',

@@ -30,12 +30,6 @@ module.exports = {
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:creator', content: '@uhyo_' },
       {
-        hid: 'og:url',
-        property: 'og:url',
-        template: () => `${process.env.origin}/`,
-        content: ''
-      },
-      {
         hid: 'og:title',
         property: 'og:title',
         template: titleTemplate,

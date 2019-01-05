@@ -12,7 +12,20 @@
 
 <script>
 export default {
-  components: {}
+  components: {},
+  asyncData({ env }) {
+    return {
+      origin: env.origin
+    };
+  },
+  head: {
+    meta: [
+      {
+        property: 'og:url',
+        content: `${this.origin}/`
+      }
+    ]
+  }
 };
 </script>
 
