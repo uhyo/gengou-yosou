@@ -1,7 +1,7 @@
 {
   "name": "gengou-yosou",
   "version": "1.0.0",
-  "description": "My prime Nuxt.js project",
+  "description": "新元号の予想を公開するサイトです。",
   "author": "uhyo",
   "private": true,
   "scripts": {

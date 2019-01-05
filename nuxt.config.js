@@ -1,19 +1,60 @@
-const pkg = require('./package')
+const pkg = require('./package');
+
+const titleTemplate = chunk =>
+  chunk ? `${chunk} - 新元号予想サイト` : '新元号予想サイト';
 
 module.exports = {
   mode: 'universal',
+
+  /**
+   * Environment variables
+   */
+  env: {
+    /**
+     * Origin of app
+     * TODO
+     */
+    origin: 'http://localhost:3000'
+  },
 
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: '',
+    titleTemplate,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:creator', content: '@uhyo_' },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        template: () => `${process.env.origin}/`,
+        content: ''
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        template: titleTemplate,
+        content: ''
+      },
+      {
+        property: 'og:image',
+        template: () => `${process.env.origin}/gengou_happyou_blank.png`,
+        content: ''
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: pkg.description
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/png', href: '/gengou_happyou_blank.png' }
+    ]
   },
 
   /*
@@ -45,4 +86,4 @@ module.exports = {
     */
     extend(config, ctx) {}
   }
-}
+};

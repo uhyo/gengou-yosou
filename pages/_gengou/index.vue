@@ -31,7 +31,31 @@ export default {
       webpackPrefetch: true
     */ '@/logic/kanji.js');
     return {
+      gengouId: params.gengou,
       gengou: getGengouData(gengouCode)
+    };
+  },
+  head() {
+    return {
+      title: `「${this.gengou.value}」`,
+      meta: [
+        {
+          hid: 'title',
+          content: `「${this.gengou.value}」`
+        },
+        {
+          hid: 'og:url',
+          content: `${process.env.origin}/${this.gengouId}`
+        },
+        {
+          hid: 'og:title',
+          content: `「${this.gengou.value}」`
+        },
+        {
+          hid: 'og:description',
+          content: this.gengou.description
+        }
+      ]
     };
   }
 };
