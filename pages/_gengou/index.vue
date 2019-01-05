@@ -13,8 +13,8 @@
     <p class="description">{{gengou.description}}</p>
 
     <div class="links">
-      <a :href="tweet" target="_blank" class="button--blue">この予想をツイート</a>
       <router-link to="/random" class="button--green">他の予想を見る</router-link>
+      <a :href="tweet" target="_blank" class="button--blue">この予想をツイート</a>
     </div>
   </article>
 </template>
@@ -95,6 +95,7 @@ export default {
   margin: 30px 0;
   font-size: 144px;
   font-family: serif;
+  white-space: nowrap;
 }
 .gengou rt {
   font-size: 54px;
@@ -114,7 +115,10 @@ export default {
 
 @media screen and (max-width: 480px) {
   .gengou {
-    font-size: 25vmin;
+    font-size: 24vmin;
+  }
+  .gengou rt {
+    font-size: 9vmin;
   }
 }
 </style>
