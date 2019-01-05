@@ -12,9 +12,10 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "nuxt": "^2.0.0",
+    "memoize-one": "^5.0.0",
     "micro": "^9.3.3",
-    "micro-route": "^2.5.0"
+    "micro-route": "^2.5.0",
+    "nuxt": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",

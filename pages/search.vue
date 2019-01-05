@@ -18,8 +18,18 @@
   </section>
 </template>
 <script>
+import memoizeOne from 'memoize-one';
 import { search, canonical } from '@/logic/kanji.js';
 import { gengouIdString } from '@/logic/gengou-code.js';
+
+const getSearchResult = memoizeOne(query => {
+  return search(query).map(obj => {
+    const gengouId = canonical(obj.leftCode, obj.rightCode);
+    obj.gengouId = gengouId;
+    obj.link = '/' + gengouIdString(gengouId);
+    return obj;
+  });
+});
 export default {
   computed: {
     query: {
@@ -34,14 +44,7 @@ export default {
       return !/^[ぁ-ん]*$/.test(this.query);
     },
     searchResult() {
-      return this.invalid
-        ? []
-        : search(this.query).map(obj => {
-            const gengouId = canonical(obj.leftCode, obj.rightCode);
-            obj.gengouId = gengouId;
-            obj.link = '/' + gengouIdString(gengouId);
-            return obj;
-          });
+      return this.invalid ? [] : getSearchResult(this.query);
     }
   }
 };
