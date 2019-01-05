@@ -7,7 +7,7 @@ import {
   sourceText
 } from './description-data';
 
-const factor = 29;
+const factor = 211;
 /**
  * Generate a description from gengou.
  */
