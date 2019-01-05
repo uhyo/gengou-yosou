@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <nuxt/>
+  <div class="wrapper">
+    <main>
+      <nuxt/>
+    </main>
+    <footer>
+      <p>新元号予想サイト</p>
+      <p>
+        作成者：
+        <a href="https://twitter.com/uhyo_" target="_blank">@uhyo_</a> /
+        <a href="https://github.com/uhyo/gengou-yosou" target="_blank">GitHub</a>
+      </p>
+      <p>このサイトはフィクションであり、実在の人物・組織・年号とは関係ありません。</p>
+    </footer>
   </div>
 </template>
 
@@ -22,6 +33,27 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.wrapper > main {
+  flex: auto 1 0;
+}
+.wrapper > footer {
+  flex: auto 0 0;
+  background-color: #eeeeee;
+  color: #666666;
+  font-size: small;
+}
+.wrapper > footer p {
+  margin: 0.2em;
+}
+.wrapper > footer a {
+  color: #444444;
 }
 
 .button--green {

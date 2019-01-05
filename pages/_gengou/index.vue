@@ -98,4 +98,10 @@ export default {
 .description {
   text-align: justify;
 }
+
+@media screen and (max-width: 480px) {
+  .gengou {
+    font-size: 25vmin;
+  }
+}
 </style>
