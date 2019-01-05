@@ -1,5 +1,5 @@
 <template>
-  <article class="page">
+  <article class="container">
     <h1 class="page-title">新元号予想</h1>
     <p class="gengou">
       <b>
@@ -10,7 +10,7 @@
       </b>
     </p>
     <h2 class="page-section">意義</h2>
-    <p>{{gengou.description}}</p>
+    <p class="description">{{gengou.description}}</p>
 
     <div class="links">
       <a :href="tweet" target="_blank" class="button--blue">この予想をツイート</a>
@@ -78,9 +78,6 @@ export default {
 };
 </script>
 <style scoped>
-.page {
-  text-align: center;
-}
 .gengou {
   margin: 30px 0;
   font-size: 144px;
@@ -97,5 +94,8 @@ export default {
 }
 .gengou b::after {
   content: '】';
+}
+.description {
+  text-align: justify;
 }
 </style>

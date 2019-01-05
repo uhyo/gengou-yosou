@@ -18,13 +18,15 @@ export default {
       origin: env.origin
     };
   },
-  head: {
-    meta: [
-      {
-        property: 'og:url',
-        content: `${this.origin}/`
-      }
-    ]
+  head() {
+    return {
+      meta: [
+        {
+          property: 'og:url',
+          content: `${this.origin}/`
+        }
+      ]
+    };
   }
 };
 </script>

@@ -68,8 +68,10 @@ html {
 }
 
 .container {
+  max-width: 640px;
   text-align: center;
-  margin: 12px 8px;
+  margin: 12px auto;
+  padding: 0 6px;
 }
 
 .links {
