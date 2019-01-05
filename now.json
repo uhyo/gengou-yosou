@@ -1,8 +1,4 @@
 {
-  "version": 2,
-  "name": "gengou-yosou",
-  "build": {
-    "NODE_ENV": "production"
-  },
-  "builds": [{ "src": "./server/index.js", "use": "@now/node-server" }]
+  "version": 1,
+  "name": "gengou-yosou"
 }
