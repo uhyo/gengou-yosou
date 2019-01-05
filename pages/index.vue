@@ -1,18 +1,15 @@
 <template>
   <section class="container">
-    <div>
-      <h1 class="page-title">新元号予想サイト</h1>
-      <p>このサイトでは、2019年4月1日に公表が予定されている新元号の独自予想を公開しています。</p>
-      <div class="links">
-        <router-link to="/random" class="button--green">予想を見る</router-link>
-      </div>
+    <h1 class="page-title">新元号予想サイト</h1>
+    <p>このサイトでは、2019年4月1日に公表が予定されている新元号の独自予想を公開しています。</p>
+    <div class="links">
+      <router-link to="/random" class="button--green">予想を見る</router-link>
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  components: {},
   asyncData({ env }) {
     return {
       origin: env.origin

@@ -4,7 +4,10 @@
       <nuxt/>
     </main>
     <footer>
-      <p>新元号予想サイト</p>
+      <p>新元号予想サイト
+        <router-link to="/">トップページ</router-link>
+        <router-link to="/search">予想を探す</router-link>
+      </p>
       <p>
         作成者：
         <a href="https://twitter.com/uhyo_" target="_blank">@uhyo_</a> /
@@ -108,6 +111,9 @@ html {
 
 .links {
   padding-top: 15px;
+}
+.page-section {
+  margin: 1em 0;
 }
 
 h1.page-title {

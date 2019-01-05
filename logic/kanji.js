@@ -2,6 +2,8 @@
 // source: https://ja.wikipedia.org/wiki/%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E4%B8%80%E8%A6%A7jj
 import kanjis from './kanji.json';
 import { generateDescription } from './description.js';
+import { searchGengou } from './search.js';
+import { composeKanji } from './composeKanji';
 
 /**
  * Number of available kanjis.
@@ -28,11 +30,8 @@ export function getGengouData(code) {
 }
 
 /**
- * Compose two kanji object.
+ * Search for matching gengou.
  */
-function composeKanji(left, right) {
-  return {
-    value: left.value + right.value,
-    read: left.read + right.read
-  };
+export function search(query) {
+  return searchGengou(query, kanjis);
 }
