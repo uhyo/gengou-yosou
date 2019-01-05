@@ -69,10 +69,12 @@ export default {
         },
         {
           hid: 'og:title',
+          property: 'og:title',
           content: `「${this.gengou.value}」`
         },
         {
           hid: 'og:description',
+          property: 'og:description',
           content: this.gengou.description
         }
       ],
