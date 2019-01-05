@@ -5,6 +5,35 @@ import { generateDescription } from './description.js';
 import { searchGengou } from './search.js';
 import { composeKanji } from './composeKanji';
 
+/*
+function readKanji() {
+  const tbody = document.querySelector(
+    '#mw-content-text > div > table:nth-child(9) > tbody'
+  );
+  return Array.from(tbody.rows)
+    .flatMap(row => {
+      const id = parseInt(row.cells[0].textContent);
+      if (!(id > 0)) return [];
+      const kanji = row.cells[1].textContent.charAt(0);
+      const reads = row.cells[8].textContent.split('、');
+      return reads
+        .map(r => r.trim())
+        .filter(read => /^[ア-ン]+$/.test(read))
+        .map(read =>
+          read
+            .split('')
+            .map(char => String.fromCharCode(char.charCodeAt(0) - 0x60))
+            .join('')
+        )
+        .map(read => ({
+          value: kanji,
+          read
+        }));
+    })
+    .sort((a, b) => (a.read < b.read ? -1 : a.read > b.read ? 1 : 0));
+}
+*/
+
 /**
  * Number of available kanjis.
  */
