@@ -11,12 +11,15 @@
       >
     </p>
     <ul class="search-result">
-      <li v-for="obj in searchResult">{{obj.value}}</li>
+      <li v-for="obj in searchResult" v-bind:key="obj.gengouId">
+        <router-link :to="obj.link">{{obj.value}}</router-link>
+      </li>
     </ul>
   </section>
 </template>
 <script>
-import { search } from '@/logic/kanji.js';
+import { search, canonical } from '@/logic/kanji.js';
+import { gengouIdString } from '@/logic/gengou-code.js';
 export default {
   data() {
     return {
@@ -28,7 +31,14 @@ export default {
       return !/^[ぁ-ん]*$/.test(this.query);
     },
     searchResult() {
-      return this.invalid ? [] : search(this.query);
+      return this.invalid
+        ? []
+        : search(this.query).map(obj => {
+            const gengouId = canonical(obj.leftCode, obj.rightCode);
+            obj.gengouId = gengouId;
+            obj.link = '/' + gengouIdString(gengouId);
+            return obj;
+          });
     }
   }
 };

@@ -29,6 +29,34 @@ export function getGengouData(code) {
   };
 }
 
+let egcdCache = null;
+/**
+ * Calculate canonical id of gengou.
+ */
+export function canonical(leftCode, rightCode) {
+  const targetIndex = rightCode * kanjiNumber + leftCode;
+  const targetIndexp = targetIndex - phase;
+  const k2 = kanjiNumber * kanjiNumber;
+  // targetIndexp == code * factor mod k2
+  const [x, _] = egcdCache || (egcdCache = egcd(factor, k2));
+  // x * factor + _ * K^2 == 1
+  // x * factor == 1 mod K^2
+  // x * targetIndexp * factor == targetIndexp mod K^2
+  const res = (x * (targetIndexp % k2)) % k2;
+  return res >= 0 ? res : res + k2;
+}
+
+/**
+ * 拡張ユークリッドの互除法
+ * Returns [x, y] such that ax + by = 1
+ */
+function egcd(a, b) {
+  if (b === 0) {
+    return [1, 0];
+  }
+  const [x, y] = egcd(b, a % b);
+  return [y, x - Math.floor(a / b) * y];
+}
 /**
  * Search for matching gengou.
  */
