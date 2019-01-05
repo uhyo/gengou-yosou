@@ -54,6 +54,8 @@ export function getGengouData(code) {
   const right = Math.floor(gengouIndex / kanjiNumber) % kanjiNumber;
   return {
     ...composeKanji(kanjis[left], kanjis[right]),
+    leftCode: left,
+    rightCode: right,
     description: generateDescription(left, right, kanjis)
   };
 }

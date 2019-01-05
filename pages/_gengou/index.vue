@@ -19,6 +19,7 @@
   </article>
 </template>
 <script>
+import { gengouIdString } from '@/logic/gengou-code.js';
 export default {
   validate({ params }) {
     // hex expression of 32bit integer
@@ -27,14 +28,20 @@ export default {
   async asyncData({ params, env }) {
     const gengouCode = parseInt(params.gengou, 16);
     const {
-      getGengouData
+      getGengouData,
+      canonical
     } = await import(/*
       webpackPrefetch: true
     */ '@/logic/kanji.js');
+    const gengou = getGengouData(gengouCode);
+    const canonicalUrl = `${env.origin}/${gengouIdString(
+      canonical(gengou.leftCode, gengou.rightCode)
+    )}`;
     return {
       gengouId: params.gengou,
-      gengou: getGengouData(gengouCode),
-      url: `${env.origin}/${params.gengou}`
+      gengou,
+      url: `${env.origin}/${params.gengou}`,
+      canonicalUrl
     };
   },
   computed: {
@@ -71,6 +78,12 @@ export default {
         {
           hid: 'og:description',
           content: this.gengou.description
+        }
+      ],
+      link: [
+        {
+          rel: 'canonical',
+          content: this.canonicalUrl
         }
       ]
     };
