@@ -6,15 +6,19 @@ const titleTemplate = chunk =>
 module.exports = {
   mode: 'universal',
 
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },
+
   /**
    * Environment variables
    */
   env: {
     /**
      * Origin of app
-     * TODO
      */
-    origin: 'http://localhost:3000'
+    origin: 'https://gengou-yosou.uhyo.space'
   },
   /*
   ** Headers of the page
