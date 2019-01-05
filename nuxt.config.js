@@ -1,7 +1,7 @@
 const pkg = require('./package');
 
 const titleTemplate = chunk =>
-  chunk ? `${chunk} - 新元号予想サイト` : '新元号予想サイト';
+  chunk ? `新元号予想${chunk}` : '新元号予想サイト';
 
 module.exports = {
   mode: 'universal',

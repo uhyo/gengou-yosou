@@ -64,10 +64,6 @@ export default {
       title: `「${this.gengou.value}」`,
       meta: [
         {
-          hid: 'title',
-          content: `「${this.gengou.value}」`
-        },
-        {
           property: 'og:url',
           content: this.url
         },
