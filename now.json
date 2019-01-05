@@ -2,7 +2,27 @@
   "version": 2,
   "name": "gengou-yosou",
   "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "env": {
     "NODE_ENV": "production"
   },
-  "builds": [{ "src": "./server/index.js", "use": "@now/node-server" }]
+  "builds": [
+    {
+      "src": "./package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "./.nuxt"
+      }
+    },
+    { "src": "./server/index.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/server/index.js"
+    }
+  ]
 }
