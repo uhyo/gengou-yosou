@@ -21,12 +21,15 @@
 import { search, canonical } from '@/logic/kanji.js';
 import { gengouIdString } from '@/logic/gengou-code.js';
 export default {
-  data() {
-    return {
-      query: ''
-    };
-  },
   computed: {
+    query: {
+      get() {
+        return this.$store.state.search.query;
+      },
+      set(query) {
+        this.$store.commit('search/update', query);
+      }
+    },
     invalid() {
       return !/^[ぁ-ん]*$/.test(this.query);
     },
