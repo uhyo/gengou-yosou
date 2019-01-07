@@ -10,15 +10,12 @@
         pattern="[ぁ-ん]+"
       >
     </p>
-    <ul class="search-result">
-      <li v-for="obj in searchResult" v-bind:key="obj.gengouId">
-        <router-link :to="obj.link">{{obj.value}}</router-link>
-      </li>
-    </ul>
+    <ListOfGengou :gengous="searchResult"/>
   </section>
 </template>
 <script>
 import memoizeOne from 'memoize-one';
+import ListOfGengou from '@/components/ListOfGengou.vue';
 import { search, canonical } from '@/logic/kanji.js';
 import { gengouIdString } from '@/logic/gengou-code.js';
 
@@ -31,6 +28,9 @@ const getSearchResult = memoizeOne(query => {
   });
 });
 export default {
+  components: {
+    ListOfGengou
+  },
   computed: {
     query: {
       get() {
@@ -59,15 +59,5 @@ input.search-input {
 }
 input.search-input.invalid {
   background-color: #ffcccc;
-}
-ul.search-result {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0;
-  padding: 0;
-}
-ul.search-result li {
-  list-style-type: none;
-  margin: 0.4em;
 }
 </style>

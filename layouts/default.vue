@@ -7,6 +7,7 @@
       <p>新元号予想サイト
         <router-link to="/">トップページ</router-link>
         <router-link to="/search">予想を探す</router-link>
+        <router-link to="/list/1">一覧を見る</router-link>
       </p>
       <p>
         作成者：

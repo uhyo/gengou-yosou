@@ -94,3 +94,21 @@ function egcd(a, b) {
 export function search(query) {
   return searchGengou(query, kanjis);
 }
+
+/**
+ * Index by code.
+ */
+export function getGengouByIndex(index) {
+  const leftCode = Math.floor(index / kanjiNumber);
+  const rightCode = index % kanjiNumber;
+  if (leftCode >= kanjiNumber) {
+    // index is too big!
+    return null;
+  }
+  return canonical(leftCode, rightCode);
+}
+
+/**
+ * Total number of gengous.
+ */
+export const gengouNumber = kanjiNumber * kanjiNumber;

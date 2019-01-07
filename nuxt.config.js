@@ -35,8 +35,7 @@ module.exports = {
       {
         hid: 'og:title',
         property: 'og:title',
-        template: titleTemplate,
-        content: ''
+        content: '新元号予想サイト'
       },
       {
         property: 'og:image',

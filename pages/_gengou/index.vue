@@ -70,7 +70,7 @@ export default {
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `「${this.gengou.value}」`
+          content: `新元号予想「${this.gengou.value}」`
         },
         {
           hid: 'og:description',
@@ -81,7 +81,7 @@ export default {
       link: [
         {
           rel: 'canonical',
-          content: this.canonicalUrl
+          href: this.canonicalUrl
         }
       ]
     };
