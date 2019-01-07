@@ -79,3 +79,7 @@ dist
 
 # IDE
 .idea
+
+# ----------
+# hide google site verification file
+/static/google*
