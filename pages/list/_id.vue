@@ -32,7 +32,7 @@ export default {
   validate({ params }) {
     return /^\d+$/.test(params.id);
   },
-  asyncData({ params, error }) {
+  asyncData({ params, env, error }) {
     const id = parseInt(params.id, 10) - 1 || 0;
     if (id < 0) {
       error({
@@ -64,6 +64,7 @@ export default {
     return {
       pageId: id + 1,
       pageTotal: Math.ceil(gengouNumber / pageLength),
+      url: `${env.origin}/list/${id + 1}`,
       gengous
     };
   },
@@ -72,6 +73,18 @@ export default {
   },
   head() {
     return {
+      title: `一覧（${this.pageId}/${this.pageTotal}）`,
+      meta: [
+        {
+          property: 'og:url',
+          content: this.url
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `新元号予想一覧（${this.pageId}/${this.pageTotal}）`
+        }
+      ],
       link: [
         this.pageId > 1
           ? {
