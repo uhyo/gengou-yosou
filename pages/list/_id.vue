@@ -50,7 +50,7 @@ export default {
       const gd = getGengouData(gengouId);
       gengous.push({
         value: gd.value,
-        link: '/' + gengouIdString(gengouId),
+        link: '/' + gengouIdString(gengouId) + '?random',
         gengouId
       });
     }

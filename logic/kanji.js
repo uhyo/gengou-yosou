@@ -112,3 +112,13 @@ export function getGengouByIndex(index) {
  * Total number of gengous.
  */
 export const gengouNumber = kanjiNumber * kanjiNumber;
+
+/**
+ * Randomize given gengou code.
+ */
+export function randomize(code) {
+  // add random identity offset.
+  const maxOffset = Math.floor(2 ** 32 / gengouNumber);
+  const offset = Math.floor(Math.random() * maxOffset);
+  return (code + offset * gengouNumber) % 0x100000000;
+}

@@ -25,14 +25,22 @@ export default {
     // hex expression of 32bit integer
     return /^[0-9a-fA-F]{8}$/.test(params.gengou);
   },
-  async asyncData({ params, env }) {
+  async asyncData({ params, env, query, redirect }) {
     const gengouCode = parseInt(params.gengou, 16);
     const {
       getGengouData,
-      canonical
+      canonical,
+      randomize
     } = await import(/*
       webpackPrefetch: true
     */ '@/logic/kanji.js');
+    if ('random' in query) {
+      // 'random' query parameter is specified.
+      // redirect randomized URL.
+      const newCode = randomize(gengouCode);
+      redirect(303, '/' + gengouIdString(newCode));
+      return;
+    }
     const gengou = getGengouData(gengouCode);
     const canonicalUrl = `${env.origin}/${gengouIdString(
       canonical(gengou.leftCode, gengou.rightCode)

@@ -23,7 +23,7 @@ const getSearchResult = memoizeOne(query => {
   return search(query).map(obj => {
     const gengouId = canonical(obj.leftCode, obj.rightCode);
     obj.gengouId = gengouId;
-    obj.link = '/' + gengouIdString(gengouId);
+    obj.link = '/' + gengouIdString(gengouId) + '?random';
     return obj;
   });
 });
