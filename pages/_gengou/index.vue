@@ -109,6 +109,7 @@ export default {
 }
 .description {
   text-align: justify;
+  min-height: 7em;
 }
 
 @media screen and (max-width: 480px) {

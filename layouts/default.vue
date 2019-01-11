@@ -66,7 +66,7 @@ html {
   border: 1px solid #3b8070;
   color: #3b8070;
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 10px;
   margin: 10px;
 }
 
@@ -81,7 +81,7 @@ html {
   border: 1px solid #303b80;
   color: #303b80;
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 10px;
   margin: 10px;
 }
 
