@@ -10,6 +10,12 @@ module.exports = {
     port: 3000,
     host: '0.0.0.0'
   },
+  serverMiddleware: [
+    {
+      path: '/sitemap',
+      handler: '~/api/sitemap'
+    }
+  ],
 
   /**
    * Environment variables
