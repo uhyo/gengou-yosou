@@ -50,7 +50,7 @@ const phase = 1111111;
  */
 export function getGengouData(code) {
   const gengouIndex = code * factor + phase;
-  const left = gengouIndex % kanjiNumber;
+  const left = ((code % kanjiNumber) * factor + phase) % kanjiNumber;
   const right = Math.floor(gengouIndex / kanjiNumber) % kanjiNumber;
   return {
     ...composeKanji(kanjis[left], kanjis[right]),
@@ -118,7 +118,7 @@ export const gengouNumber = kanjiNumber * kanjiNumber;
  */
 export function randomize(code) {
   // add random identity offset.
-  const maxOffset = Math.floor(2 ** 32 / gengouNumber);
+  const maxOffset = Math.floor((2 ** 32 - code - 1) / gengouNumber);
   const offset = Math.floor(Math.random() * maxOffset);
   return (code + offset * gengouNumber) % 0x100000000;
 }
