@@ -1,5 +1,5 @@
 import staticServer from '@fly/static';
-import { getGengouData, canonical } from './logic/kanji';
+import { getGengouData, canonical, randomize } from './logic/kanji';
 import { gengouIdString } from './logic/gengou-code';
 
 // cache setting
@@ -18,7 +18,7 @@ fly.http.respondWith(async request => {
   const pathname = url.pathname;
   if (/\/[0-9a-f]{8}$/i.test(pathname)) {
     // detected a URL of gengou page.
-    return generateGengouPage(pathname.slice(1));
+    return generateGengouPage(pathname.slice(1), url.search === '?random');
   } else if (/\/\w+$/.test(pathname)) {
     url.pathname += '/';
   }
@@ -32,9 +32,13 @@ fly.http.respondWith(async request => {
 });
 
 // generate gengou page.
-async function generateGengouPage(gengouCodeStr) {
-  const templateRespP = fetch('file://dist/template/gengou/index.html');
+async function generateGengouPage(gengouCodeStr, random) {
   const gengouCode = parseInt(gengouCodeStr, 16);
+  if (random) {
+    const newCode = randomize(gengouCode);
+    return Response.redirect('/' + gengouIdString(newCode), 303);
+  }
+  const templateRespP = fetch('file://dist/template/gengou/index.html');
 
   const gengou = getGengouData(gengouCode);
   const canonicalUrl = `${app.config.origin}/${gengouIdString(
