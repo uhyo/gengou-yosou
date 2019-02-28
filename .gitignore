@@ -83,3 +83,5 @@ dist
 # ----------
 # hide google site verification file
 /static/google*
+# hide fly-generated files
+/.fly/

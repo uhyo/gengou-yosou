@@ -92,7 +92,8 @@ module.exports = {
    * Generate all list pages
    */
   generate: {
-    routes: allListRoutes()
+    routes: allListRoutes(),
+    concurrency: 20
   }
 };
 
