@@ -21,12 +21,8 @@ import {
   gengouNumber
 } from '@/logic/kanji.js';
 import { gengouIdString } from '@/logic/gengou-code.js';
+import { pageLength } from '@/logic/list.js';
 import ListOfGengous from '@/components/ListOfGengou.vue';
-
-/**
- * Number of gengous shown in one page.
- */
-const pageLength = 1000;
 
 export default {
   validate({ params }) {

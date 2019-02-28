@@ -20,6 +20,7 @@
 </template>
 <script>
 export default {
+  props: ['url', 'gengouId', 'gengou', 'canonicalUrl'],
   computed: {
     tweet() {
       const {

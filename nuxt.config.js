@@ -87,5 +87,25 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {}
+  },
+  /**
+   * Generate all list pages
+   */
+  generate: {
+    routes: allListRoutes()
   }
 };
+
+/**
+ * Generate all routes of gengou list.
+ */
+function allListRoutes() {
+  const result = [];
+  // TODO
+  const pageTotal = 4885;
+  for (let i = 1; i <= pageTotal; i++) {
+    result.push(`/list/${i}`);
+  }
+
+  return result;
+}
