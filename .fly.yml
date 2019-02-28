@@ -2,4 +2,4 @@ app: gengou-yosou
 config:
   origin: 'https://gengou-yosou.uhyo.space'
 files:
-  - dist
+  - dist/**
