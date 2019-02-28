@@ -92,21 +92,6 @@ module.exports = {
    * Generate all list pages
    */
   generate: {
-    routes: allListRoutes(),
-    concurrency: 20
+    routes: ['/list/1']
   }
 };
-
-/**
- * Generate all routes of gengou list.
- */
-function allListRoutes() {
-  const result = [];
-  // TODO
-  const pageTotal = 4885;
-  for (let i = 1; i <= pageTotal; i++) {
-    result.push(`/list/${i}`);
-  }
-
-  return result;
-}
