@@ -5,9 +5,9 @@
     </main>
     <footer>
       <p>新元号予想サイト
-        <router-link to="/">トップページ</router-link>
-        <router-link to="/search">予想を探す</router-link>
-        <router-link to="/list/1">一覧を見る</router-link>
+        <nuxt-link to="/">トップページ</nuxt-link>
+        <nuxt-link to="/search">予想を探す</nuxt-link>
+        <nuxt-link to="/list/1">一覧を見る</nuxt-link>
       </p>
       <p>
         作成者：

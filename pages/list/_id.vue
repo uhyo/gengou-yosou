@@ -6,11 +6,11 @@
       <hr>
       <p>
         <span v-if="pageId > 1">
-          <router-link :to="`/list/${pageId-1}`">{{pageId-1}}</router-link>
+          <nuxt-link :to="`/list/${pageId-1}`" rel="prev">{{pageId-1}}</nuxt-link>
         </span>
         <b>{{pageId}}</b>
         <span v-if="pageId < pageTotal">
-          <router-link :to="`/list/${pageId+1}`">{{pageId+1}}</router-link>
+          <nuxt-link :to="`/list/${pageId+1}`" rel="next">{{pageId+1}}</nuxt-link>
         </span>
       </p>
     </article>
@@ -82,21 +82,7 @@ export default {
           property: 'og:title',
           content: `新元号予想一覧（${this.pageId}/${this.pageTotal}）`
         }
-      ],
-      link: [
-        this.pageId > 1
-          ? {
-              rel: 'prev',
-              href: `/list/${this.pageId - 1}`
-            }
-          : null,
-        this.pageId < this.pageTotal
-          ? {
-              rel: 'next',
-              href: `/list/${this.pageId + 1}`
-            }
-          : null
-      ].filter(x => x)
+      ]
     };
   }
 };

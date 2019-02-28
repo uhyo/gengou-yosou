@@ -1,6 +1,12 @@
 import staticServer from '@fly/static';
-import { getGengouData, canonical, randomize } from './logic/kanji';
+import {
+  getGengouData,
+  canonical,
+  randomize,
+  gengouNumber
+} from './logic/kanji';
 import { gengouIdString } from './logic/gengou-code';
+import { pageLength } from './logic/list';
 
 // cache setting
 const cache = {
@@ -8,6 +14,10 @@ const cache = {
   page: 'public, max-age=86400, s-max-age=2592000',
   assets: 'public, max-age=2592000, immutable'
 };
+
+// number of pages
+const pageNumber = Math.ceil(gengouNumber / pageLength);
+const pageNumberRegExp = new RegExp(`1\\/${pageNumber}`, 'g');
 
 // fly application
 const staticRoute = staticServer({
@@ -19,6 +29,9 @@ fly.http.respondWith(async request => {
   if (/\/[0-9a-f]{8}$/i.test(pathname)) {
     // detected a URL of gengou page.
     return generateGengouPage(pathname.slice(1), url.search === '?random');
+  } else if (/\/list\/\d+$/i.test(pathname)) {
+    // detected a URL of gengou list page.
+    return generateListPage(pathname.slice(6));
   } else if (/\/\w+$/.test(pathname)) {
     url.pathname += '/';
   }
@@ -59,6 +72,24 @@ async function generateGengouPage(gengouCodeStr, random) {
     /\{\{(\w+)\}\}/g,
     (_, name) => replaceDict[name]
   );
+  const newResponse = new Response(newBody, templateResp);
+  newResponse.headers.set('cache-control', cache.page);
+  return newResponse;
+}
+
+// generate gengou list page.
+async function generateListPage(pageId) {
+  const pageNum = parseInt(pageId, 10);
+  if (pageNum <= 0 || pageNum > pageNumber) {
+    return new Response('not found', {
+      status: 404
+    });
+  }
+  const templateResp = await fetch('file://dist/list/1/index.html');
+  const body = await templateResp.text();
+  const newBody = body
+    .replace(pageNumberRegExp, `${pageNum}/${pageNumber}`)
+    .replace('pageId:1', `pageId:${pageNum}`);
   const newResponse = new Response(newBody, templateResp);
   newResponse.headers.set('cache-control', cache.page);
   return newResponse;

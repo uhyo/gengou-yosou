@@ -1,7 +1,7 @@
 <template>
   <ul class="search-result">
     <li v-for="obj in gengous" v-bind:key="obj.gengouId">
-      <router-link :to="obj.link">{{obj.value}}</router-link>
+      <nuxt-link :to="obj.link">{{obj.value}}</nuxt-link>
     </li>
   </ul>
 </template>
