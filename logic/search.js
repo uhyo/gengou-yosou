@@ -5,42 +5,36 @@ import { composeKanji } from './composeKanji';
  */
 export function searchGengou(query, kanjis) {
   if (!query) return [];
-  // binary-search for first character.
-  const rangeStart = prefixBSearchStart(query, kanjis, false);
-  if (rangeStart == null) {
+  if (query.length >= 7) {
+    // gengou with more than 6 characters read is not known.
     return [];
   }
-  const rangeEnd = prefixBSearchEnd(query, kanjis, false);
-  if (rangeEnd == null) {
-    return [];
-  }
-  const firstKanjis = kanjis.slice(rangeStart, rangeEnd + 1);
-  const cache = {};
   const result = [];
-  for (let leftCode = rangeStart; leftCode <= rangeEnd; leftCode++) {
-    const obj = kanjis[leftCode];
-    const secondQuery = query.slice(obj.read.length);
-    if (cache[secondQuery] == null) {
-      const rangeStart = prefixBSearchStart(secondQuery, kanjis, true);
-      if (rangeStart == null) {
-        cache[secondQuery] = [];
-        continue;
-      }
-      const rangeEnd = prefixBSearchEnd(secondQuery, kanjis, true);
-      if (rangeEnd == null) {
-        cache[secondQuery] = [];
-        continue;
-      }
-      cache[secondQuery] = { rangeStart, rangeEnd };
+  for (let i = 1; i < query.length; i++) {
+    const firstKanji = query.slice(0, i);
+    const secondKanji = query.slice(i);
+    // binary-seach for first kanji.
+    const rangeStart1 = prefixBSearchStart(firstKanji, kanjis, true);
+    const rangeEnd1 = prefixBSearchEnd(firstKanji, kanjis, true);
+    if (rangeStart1 == null || rangeEnd1 == null) {
+      continue;
     }
-    const c = cache[secondQuery];
-    for (let rightCode = c.rangeStart; rightCode <= c.rangeEnd; rightCode++) {
-      const secondKanji = kanjis[rightCode];
-      result.push({
-        ...composeKanji(obj, secondKanji),
-        leftCode,
-        rightCode
-      });
+    // search for second kanji.
+    const rangeStart2 = prefixBSearchStart(secondKanji, kanjis, true);
+    const rangeEnd2 = prefixBSearchEnd(secondKanji, kanjis, true);
+    if (rangeStart2 == null || rangeEnd2 == null) {
+      continue;
+    }
+    for (let leftCode = rangeStart1; leftCode <= rangeEnd1; leftCode++) {
+      const leftKanji = kanjis[leftCode];
+      for (let rightCode = rangeStart2; rightCode <= rangeEnd2; rightCode++) {
+        const rightKanji = kanjis[rightCode];
+        result.push({
+          ...composeKanji(leftKanji, rightKanji),
+          leftCode,
+          rightCode
+        });
+      }
     }
   }
   return result;
