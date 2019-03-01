@@ -87,5 +87,11 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {}
+  },
+  /**
+   * Generate all list pages
+   */
+  generate: {
+    routes: ['/list/1']
   }
 };
