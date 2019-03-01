@@ -8,6 +8,7 @@ import {
 import { gengouIdString } from './logic/gengou-code';
 import { pageLength } from './logic/list';
 
+console.log('fly starting');
 // cache setting
 const cache = {
   // cache for pages
