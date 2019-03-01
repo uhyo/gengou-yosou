@@ -87,6 +87,7 @@ async function generateGengouPage(gengouCodeStr, random) {
   );
   const newResponse = new Response(newBody, templateResp);
   newResponse.headers.set('cache-control', cache.page);
+  newResponse.headers.set('content-type', 'text/html');
   return newResponse;
 }
 
@@ -105,6 +106,7 @@ async function generateListPage(pageId) {
     .replace('pageId:1', `pageId:${pageNum}`);
   const newResponse = new Response(newBody, templateResp);
   newResponse.headers.set('cache-control', cache.page);
+  newResponse.headers.set('content-type', 'text/html');
   return newResponse;
 }
 
@@ -146,6 +148,7 @@ function generateSitemap(pathname) {
 `;
   const resp = new Response(body, { status: 200 });
   resp.headers.set('Content-Type', 'application/xml');
+  resp.headers.set('Cache-Control', cache.page);
   return resp;
 }
 
@@ -163,5 +166,6 @@ function generateSitemapIndex() {
     status: 200
   });
   resp.headers.set('Content-Type', 'application/xml');
+  resp.headers.set('Cache-Control', cache.page);
   return resp;
 }
