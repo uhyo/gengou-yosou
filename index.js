@@ -27,6 +27,16 @@ const staticRoute = staticServer({
 fly.http.respondWith(async request => {
   const url = new URL(request.url);
   const pathname = url.pathname;
+  console.log(url.protocol);
+  if (app.env === 'production' && url.protocol === 'http:') {
+    url.protocol = 'https:';
+    return new Response('Moved', {
+      status: 301,
+      headers: {
+        Location: url.toString()
+      }
+    });
+  }
   if (/^\/[0-9a-f]{8}$/i.test(pathname)) {
     // detected a URL of gengou page.
     return generateGengouPage(pathname.slice(1), url.search === '?random');
