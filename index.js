@@ -27,13 +27,15 @@ const staticRoute = staticServer({
 fly.http.respondWith(async request => {
   const url = new URL(request.url);
   const pathname = url.pathname;
-  if (/\/[0-9a-f]{8}$/i.test(pathname)) {
+  if (/^\/[0-9a-f]{8}$/i.test(pathname)) {
     // detected a URL of gengou page.
     return generateGengouPage(pathname.slice(1), url.search === '?random');
-  } else if (/\/list\/\d+$/i.test(pathname)) {
+  } else if (/^\/list\/\d+$/i.test(pathname)) {
     // detected a URL of gengou list page.
     return generateListPage(pathname.slice(6));
-  } else if (/\/\w+$/.test(pathname)) {
+  } else if (/^\/sitemap(?:\/\d+)?$/.test(pathname)) {
+    return generateSitemap(pathname);
+  } else if (/^\/\w+$/.test(pathname)) {
     url.pathname += '/';
   }
   request.url = url;
@@ -94,4 +96,62 @@ async function generateListPage(pageId) {
   const newResponse = new Response(newBody, templateResp);
   newResponse.headers.set('cache-control', cache.page);
   return newResponse;
+}
+
+/**
+ * Number of URLs which appear in one sitemap.
+ */
+const sitemapPageLength = 10000;
+const sitemapPages = Math.ceil(gengouNumber / sitemapPageLength);
+
+// generate sitemap page
+function generateSitemap(pathname) {
+  if (pathname === '/sitemap') {
+    // send index of sitemap.
+    return generateSitemapIndex();
+  }
+  const page = parseInt(pathname.slice(9), 10);
+  if (page <= 0 || sitemapPages < page) {
+    return new Response('Not found', {
+      status: 404
+    });
+  }
+  const start = (page - 1) * pageLength;
+  const end = Math.min(gengouNumber, page * pageLength);
+
+  let body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+`;
+  for (let i = start; i < end; i++) {
+    const code = i.toString(16).padStart(8, '0');
+    body += `
+  <url>
+    <loc>${app.config.origin}/${code}</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+`;
+  }
+  body += `
+</urlset>
+`;
+  const resp = new Response(body, { status: 200 });
+  resp.headers.set('Content-Type', 'application/xml');
+  return resp;
+}
+
+function generateSitemapIndex() {
+  let body = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+`;
+  for (let i = 1; i <= sitemapPages; i++) {
+    body += `<sitemap>
+  <loc>${app.config.origin}/sitemap/${i}</loc>
+</sitemap>`;
+  }
+  body += `</sitemapindex>`;
+  const resp = new Response(body, {
+    status: 200
+  });
+  resp.headers.set('Content-Type', 'application/xml');
+  return resp;
 }
