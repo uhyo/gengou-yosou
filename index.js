@@ -128,8 +128,8 @@ function generateSitemap(pathname) {
       status: 404
     });
   }
-  const start = (page - 1) * pageLength;
-  const end = Math.min(gengouNumber, page * pageLength);
+  const start = (page - 1) * sitemapPageLength;
+  const end = Math.min(gengouNumber, page * sitemapPageLength);
 
   let body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
