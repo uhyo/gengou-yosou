@@ -15,7 +15,7 @@
     "memoize-one": "^5.0.0",
     "micro": "^9.3.3",
     "micro-route": "^2.5.0",
-    "nuxt": "^2.4.5"
+    "nuxt": "^2.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
